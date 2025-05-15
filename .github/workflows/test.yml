@@ -1,0 +1,33 @@
+name: Test App Node.js sur plusieurs environnements
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node: [16, 18, 20]
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Installer les dépendances
+        run: npm install
+
+      - name: S'assurer que Jest est installé
+        run: npm install --save-dev jest
+
+      - name: Vérifier la version de Jest
+        run: npx jest --version
+
+      - name: Exécuter les tests
+        run: npm test
