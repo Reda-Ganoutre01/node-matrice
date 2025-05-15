@@ -6,7 +6,7 @@ function sayHello(name = "dev") {
 }
 
 if (require.main === module) {
-  console.log(sayHello("Zineb"));
+  console.log(sayHello("Reda Ganoutre"));
 }
 
 module.exports = { sayHello };
